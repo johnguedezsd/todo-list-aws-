@@ -103,6 +103,22 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.text,
             responseGet['text'])
         print ('End: test_get_todo')
+        
+    def test_get_todo_error(self):
+        print ('---------------------')
+        print ('Start: test_get_todo_error')
+        from src.todoList import get_item
+        self.assertRaises(
+            Exception,
+            get_item(
+                "",
+                self.dynamodb))
+        self.assertRaises(
+            TypeError,
+            get_item(
+                "",
+                self.dynamodb))
+        print ('End: test_get_todo_error')
     
     def test_list_todo(self):
         print ('---------------------')
@@ -118,7 +134,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertTrue(len(result) == 1)
         self.assertTrue(result[0]['text'] == self.text)
         print ('End: test_list_todo')
-
 
     def test_update_todo(self):
         print ('---------------------')
@@ -140,10 +155,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(result['text'], updated_text)
         print ('End: test_update_todo')
 
-
     def test_update_todo_error(self):
         print ('---------------------')
-        print ('Start: atest_update_todo_error')
+        print ('Start: test_update_todo_error')
         from src.todoList import put_item
         from src.todoList import update_item
         updated_text = "Aprender más cosas que DevOps y Cloud en la UNIR"
@@ -172,7 +186,7 @@ class TestDatabaseFunctions(unittest.TestCase):
                 self.uuid,
                 "",
                 self.dynamodb))
-        print ('End: atest_update_todo_error')
+        print ('End: test_update_todo_error')
 
     def test_delete_todo(self):
         print ('---------------------')
