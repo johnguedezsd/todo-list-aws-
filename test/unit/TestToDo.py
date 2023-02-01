@@ -31,7 +31,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         from src.todoList import create_todo_table
         self.table = create_todo_table(self.dynamodb)
-        #self.table_local = create_todo_table()
+        self.table_local = create_todo_table()
         print ('End: setUp')
 
     def tearDown(self):
@@ -47,8 +47,8 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_table_exists(self):
         print ('---------------------')
         print ('Start: test_table_exists')
-        #self.assertTrue(self.table)  # check if we got a result
-        #self.assertTrue(self.table_local)  # check if we got a result
+        self.assertTrue(self.table)  # check if we got a result
+        self.assertTrue(self.table_local)  # check if we got a result
 
         print('Table name:' + self.table.name)
         tableName = os.environ['DYNAMODB_TABLE'];
@@ -57,17 +57,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIn('todoTable', self.table_local.name)
         print ('End: test_table_exists')
         
-    def test_create_todo_table(self):
-        print ('---------------------')
-        print ('Start: test_create_todo_table')
-        # Testing file functions
-        from src.todoList import create_todo_table
-        # Table local
-        response = create_todo_table(self.dynamodb)
-        print ('Response create_todo_table:' + str(response))
-        self.assertEqual(200, response['statusCode'])
-        print ('End: test_create_todo_table')
-
 
     def test_put_todo(self):
         print ('---------------------')
