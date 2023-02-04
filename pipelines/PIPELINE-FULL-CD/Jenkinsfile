@@ -18,10 +18,8 @@ pipeline {
                     git checkout -b master origin/master
                     git merge develop
                 """, label: "Merging code to master"
-                sshagent(['github-key-ssh']) {
-                    sh """git push origin master
-                    ssh-keyscan -H git.my-company.com >> ~/.ssh/known_hosts
-                    """
+                sshagent(['github']) {
+                    sh "git push origin master"
                     
                 }
 
